@@ -92,43 +92,43 @@ Sketch -> Include Library -> Manage Libraries and searching for PubSubClient.
 
 ## Diagram
 
-Android phone
-+--------------+
-| Button press |     # A smart phone app is used to hit a web API endpoint.
-+--------------+
-
-  +
-  | HTTPS request
-  v
-
-AWS APIGW / Lambda
-+--------------+
-| Web API      |     # The API is handled by an AWS Lambda function acting as a HTTP->MQTT proxy.
-+--------------+     # It publishes to topic garage/entry or garage/exit as required.
-
-  +
-  | MQTT publish
-  v
-
-CloudMQTT
-+--------------+
-| MQTT Broker  |     # The broker publishes the received topic and payload to all subscribed clients.
-+--------------+     # I used CloudMQTT as it is well known in the community and has a free plan.
-
-  +
-  | MQTT
-  v
-
-esp8266 (NodeMCU)
-+--------------+
-|  Controller  |     # When the controller receives a MQTT topic of garage/entry or garage/exit
-+--------------+     # it activates the appropriate relay for 1 second.
-
-  +
-  | Relay
-  v
-
-Garage remote
-+--------------+     # With the relay hooked up to the push button pads on the garage remote board,
-| Remote press |     # a 1 second activation is the same as a 1 second button press.
-+--------------+     # The chosen gate opens.
+    Android phone
+    +--------------+
+    | Button press |     # A smart phone app is used to hit a web API endpoint.
+    +--------------+
+    
+      +
+      | HTTPS request
+      v
+    
+    AWS APIGW / Lambda
+    +--------------+
+    | Web API      |     # The API is handled by an AWS Lambda function acting as a HTTP->MQTT proxy.
+    +--------------+     # It publishes to topic garage/entry or garage/exit as required.
+    
+      +
+      | MQTT publish
+      v
+    
+    CloudMQTT
+    +--------------+
+    | MQTT Broker  |     # The broker publishes the received topic and payload to all subscribed clients.
+    +--------------+     # I used CloudMQTT as it is well known in the community and has a free plan.
+    
+      +
+      | MQTT
+      v
+    
+    esp8266 (NodeMCU)
+    +--------------+
+    |  Controller  |     # When the controller receives a MQTT topic of garage/entry or garage/exit
+    +--------------+     # it activates the appropriate relay for 1 second.
+    
+      +
+      | Relay
+      v
+    
+    Garage remote
+    +--------------+     # With the relay hooked up to the push button pads on the garage remote board,
+    | Remote press |     # a 1 second activation is the same as a 1 second button press.
+    +--------------+     # The chosen gate opens.
