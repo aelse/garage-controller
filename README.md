@@ -2,6 +2,8 @@
 
 Software and firmware for a esp8266 based garage controller
 
+https://hackaday.io/project/21074-esp8266-internet-controlled-relay-garage-opener
+
 ## Motivation and Purpose
 
 Visitor parking is available in the car park of our residential complex.
