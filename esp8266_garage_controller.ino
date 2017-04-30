@@ -1,5 +1,5 @@
 /* Relay web server
- *  
+ *
  * Relay module is active low. We toggle pinmode INPUT(inactive)/OUTPUT(active) to switch states.
  * esp8266 module pins are INPUT on power up, so default relay state is inactive.
  * Switch should be connected via the NO relay contact.
@@ -7,6 +7,9 @@
 
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
+extern "C" {
+#include "user_interface.h"
+}
 
 uint8_t relayPin1 = D1;  // Entry gate
 uint8_t relayPin2 = D2;  // Exit gate
@@ -14,6 +17,7 @@ uint8_t ledPin = D3;
 
 const char* ssid = "mySSID";
 const char* wifi_password = "myWiFiPassword";
+const char* wifi_hostname = "GateController";
 
 const char* mqtt_server = "cloudmqtt_broker_hostname";  // provided by cloudmqtt
 unsigned int mqtt_port = 12345;  // provided by cloudmqtt
@@ -85,6 +89,7 @@ void setup() {
   delay(10);
 
   // Connect to Wifi.
+  wifi_station_set_hostname((char *)wifi_hostname);
   Serial.printf("\n\n\nConnecting to %s\n", ssid);
   WiFi.begin(ssid, wifi_password);
   while (WiFi.status() != WL_CONNECTED) {
