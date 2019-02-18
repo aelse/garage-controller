@@ -1,3 +1,33 @@
+#ifndef Song_h
+#define Song_h
+
+typedef struct {
+  int freq;
+  int duration;
+} note;
+
+
+void play_song(int pin, note* melody, int num_notes) {
+  // iterate over the notes of the melody:
+  for (int thisNote = 0; thisNote < num_notes; thisNote++) {
+    // to calculate the note duration, take one second
+    // divided by the note type.
+    //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+    int noteDuration = 1000 / melody[thisNote].duration;
+    int freq = melody[thisNote].freq;
+    if (freq == 1) {
+      noTone(pin);
+    } else {
+      tone(pin, freq, noteDuration);
+    }
+    // to distinguish the notes, set a minimum time between them.
+    // the note's duration + 30% seems to work well:
+    delay((int)(noteDuration * 1.30));
+    // stop the tone playing:
+    noTone(pin);
+  }
+}
+
 /*************************************************
  * Public Constants
  *************************************************/
@@ -91,3 +121,5 @@
 #define NOTE_CS8 4435
 #define NOTE_D8  4699
 #define NOTE_DS8 4978
+
+#endif /* Song_h */
